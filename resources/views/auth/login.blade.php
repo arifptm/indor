@@ -3,7 +3,7 @@
 @section('content')
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Login</b> App</a>
+    <a href="/"><b>Login</b> App</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
@@ -59,4 +59,15 @@
   </div>
   <!-- /.login-box-body -->
 </div>                          
+@endsection
+@section('f_scripts')
+<script>
+  $(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' // optional
+    });
+  });
+</script>
 @endsection

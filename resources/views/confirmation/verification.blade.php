@@ -1,15 +1,12 @@
 @extends('auth.template')
 @section('content')
-<div class="container">
-<div class="row">
-<div class="col-md-8 col-md-offset-2">
-<div class="panel panel-default">
-<div class="panel-heading">Registration</div>
-<div class="panel-body">
-You have successfully registered. An email is sent to you for verification.
-</div>
-</div>
-</div>
-</div>
+<div class="login-box">
+  <div class="login-logo">
+    Pendaftaran <b>Berhasil</b>
+  </div>
+  <div class="login-box-body">
+  	<h4>Pendaftaran anda telah kami terima.<br/>
+  	Silakan periksa email untuk konfirmasi akun anda.</h4>
+  </div>  
 </div>
 @endsection

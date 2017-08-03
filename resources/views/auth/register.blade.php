@@ -52,12 +52,26 @@
         <!-- /.col -->
         <div class="col-xs-4">
           {{ csrf_field() }}
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat" disabled id="btn-reg">Register</button>
         </div>
       </div>
     </form>
-    <a href="login.html" class="text-center">I already have a membership</a>
+    <a href="/login" class="text-center">I already have a membership</a>
   </div>
 </div>
-
+@endsection
+@section('f_scripts')
+<script>
+  $(function () {
+    $('input').on('ifChecked', function(event){
+      $('#btn-reg').prop('disabled',false);
+    }).on('ifUnchecked', function(event){
+      $('#btn-reg').prop('disabled',true);
+    }).iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' // optional
+    });
+  });
+</script>
 @endsection
