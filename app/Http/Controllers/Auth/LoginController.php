@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Laravel\Socialite\Facades\Socialite;
 use App\Role;
 use App\User;
+use App\Profile;
+use File;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -65,6 +67,16 @@ class LoginController extends Controller
             $user->password = bcrypt(str_random(6));        
             $user->save();   
             $user->attachRole('user');
+
+            $profile = new Profile;
+            $profile->user_id = $user->id;
+
+            $filename = time().".jpg";
+            $fileContents = file_get_contents($fb_user->avatar);
+            File::put(public_path() . '/assets/profiles/' . $filename , $fileContents);
+            $profile->image = $filename;
+            $profile->save();
+
             Auth::login($user);
         } else {
             Auth::login($user_exist);   

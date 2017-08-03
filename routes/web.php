@@ -6,6 +6,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/email/verify/{token}', 'Auth\RegisterController@verify');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
@@ -14,7 +16,7 @@ Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallba
 
 
 
-Route::group(['middleware' => ['role:user']], function() {
+Route::group(['middleware' => ['role:user|super']], function() {
 	Route::get('/profile', 'UserController@profile');
 	Route::patch('/profile/update', 'UserController@updateProfile');
 });

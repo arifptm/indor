@@ -11,7 +11,7 @@
 
     <form  method="POST" action="{{ route('register') }}">
       <div class="form-group has-feedback {{ $errors->has('name') ? ' has-error' : '' }}">
-        <input id="name" type="text" class="form-control" placeholder="Full name" name="name" value="{{ old('name') }}" required autofocus>
+        <input id="name" type="text" class="form-control" placeholder="Full name" name="name" value="{{ old('name') }}" autofocus>
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
             @if ($errors->has('name'))
                 <span class="help-block">
@@ -20,7 +20,7 @@
             @endif       
       </div>
       <div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
-        <input id="email" name="email" value="{{ old('email') }}" required type="email" class="form-control" placeholder="Email">
+        <input id="email" name="email" value="{{ old('email') }}" type="text" class="form-control" placeholder="Email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             @if ($errors->has('email'))
                 <span class="help-block">
@@ -29,7 +29,7 @@
             @endif        
       </div>
       <div class="form-group has-feedback {{ $errors->has('password') ? ' has-error' : '' }}">
-        <input id="password" name="password" required type="password" class="form-control" placeholder="Password">
+        <input id="password" name="password"  type="password" class="form-control" placeholder="Password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             @if ($errors->has('password'))
                 <span class="help-block">
@@ -38,7 +38,7 @@
             @endif        
       </div>
       <div class="form-group has-feedback">
-        <input id="password-confirm" name="password_confirmation" required type="password" class="form-control" placeholder="Retype password">
+        <input id="password-confirm" name="password_confirmation"  type="password" class="form-control" placeholder="Retype password">
         <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
       </div>
       <div class="row">

@@ -1,6 +1,6 @@
       <div class="user-panel">
         <div class="pull-left image">
-          <a  href="/profile" ><img src="/bower_components/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle profile-img" alt="User Image"></a>
+          <a  href="/profile" ><img src="/assets/profiles/{{ isset(Auth::user()->profile->image) ? Auth::user()->profile->image : 'avatar.jpg' }}" class="img-circle profile-img" alt="User Image"></a>
         </div>
         <div class="pull-left info">
           <p>{{ Auth::user()->name }}</p>

@@ -8,12 +8,14 @@ use Flash;
 use Response;
 use App\Role;
 use Auth;
+use App\Profile;
+use App\Http\Requests\UserCreate;
 
 class UserController extends Controller
 {
     public function index(){        
         $super = User::whereRoleIs('super')->pluck('id');
-        $users = User::where('id','<>',$super)->simplePaginate(5);
+        $users = User::where('id','<>',$super)->simplePaginate(25);
         return view('user.index', ['users'=> $users]);
     }
 
@@ -22,7 +24,7 @@ class UserController extends Controller
         return view('user.create', ['roles'=> $roles]);
     }
 
-    public function store(Request $request){
+    public function store(UserCreate $request){
         $req = $request->all();
         $req['password'] = bcrypt($request->password);        
         $u = User::create($req);
@@ -93,15 +95,24 @@ class UserController extends Controller
 
     public function updateProfile(Request $request){
         $user = Auth::user();
-        $request['id'] = $user->id;  
-        $request['role'] = $user->roles->pluck('name')->toArray();
-        
-
+        $req['id'] = $user->id;  
+        $req['role'] = $user->roles->pluck('name')->toArray();        
         if ( $request->password != ''){
-            $request['password'] = bcrypt($request->password);
+            $req['password'] = bcrypt($request->password);
+        } else {
+            $req['password'] = $user->password;
         }    
+        $req['name'] = $request->name;
+        $req['email'] = $request->email;
         
-        $user -> update($request->all());
+        $user -> update($req);
+        
+        if ($request->hasFile('image')) {
+            $user_img = Profile::firstOrCreate(['user_id'=>$user->id]);
+            $profile['image'] = $this->upload($request);
+            $profile['user_id'] = $user_img->user_id;
+            $user_img->update($profile);
+        }
         
         flash('User update successfully.')->success();
         return redirect('/profile');
@@ -115,7 +126,7 @@ class UserController extends Controller
                 try {
                     $file = $request->file('image');
                     $name = time() . '.' . $file->guessClientExtension();
-                    $request->file('image')->move("upload/image/", $name);
+                    $request->file('image')->move("assets/profiles/", $name);
                     return $name;
 
                 } catch (Illuminate\Filesystem\FileNotFoundException $e) {

@@ -18,7 +18,7 @@
         <div class="col-md-4">
           <div class="box box-primary">
             <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="/bower_components/AdminLTE/dist/img/user4-128x128.jpg" alt="User profile picture">
+              <img class="profile-user-img img-responsive img-circle" src="/assets/profiles/{{ isset(Auth::user()->profile->image) ? Auth::user()->profile->image : 'avatar.jpg' }}" alt="User profile picture">
 
               <h3 class="profile-username text-center">{{ $user->name }}</h3>
 
@@ -26,20 +26,17 @@
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Followers</b> <a class="pull-right">1,322</a>
+                  <b>Nama</b> <a class="pull-right">{{ $user->name }}</a>
                 </li>
                 <li class="list-group-item">
-                  <b>Following</b> <a class="pull-right">543</a>
+                  <b>Email</b> <a class="pull-right">{{ $user->email }}</a>
                 </li>
                 <li class="list-group-item">
-                  <b>Friends</b> <a class="pull-right">13,287</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Password</b> <a class="pull-right">{{ $user->password }}</a>
+                  <b>Role</b> <a class="pull-right">@foreach($user->roles as $role){{ $role->name }}@endforeach</a>
                 </li>
               </ul>
 
-              <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+              
             </div>
           </div>
 
@@ -50,7 +47,13 @@
               <h3 class="box-title ">Edit Profile</h3>
             </div>
             <div class="box-body">
-            {!! Form::model($user, ['url' => '/profile/update', 'method' => 'patch']) !!}
+            {!! Form::model($user, ['url' => '/profile/update', 'method' => 'patch', 'files'=>true ]) !!}
+              
+              <div class="form-group col-sm-12">
+                  {!! Form::label('image', 'Photo:') !!}
+                  {!! Form::file('image', ['class' => 'form-control']) !!}
+              </div>
+
               <div class="form-group col-sm-12">
                   {!! Form::label('name', 'User Name:') !!}
                   {!! Form::text('name', null, ['class' => 'form-control']) !!}
