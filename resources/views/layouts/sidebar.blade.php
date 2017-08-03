@@ -1,6 +1,6 @@
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="/bower_components/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <a  href="/profile" ><img src="/bower_components/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle profile-img" alt="User Image"></a>
         </div>
         <div class="pull-left info">
           <p>{{ Auth::user()->name }}</p>

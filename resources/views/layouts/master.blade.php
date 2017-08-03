@@ -11,6 +11,7 @@
   <!-- <link rel="stylesheet" href="{{ asset('/bower_components/ionicons/css/ionicons.min.css') }}"> -->
   <link rel="stylesheet" href="{{ asset('/bower_components/AdminLTE/dist/css/AdminLTE.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/bower_components/AdminLTE/dist/css/skins/skin-red.min.css') }} ">
+  <link rel="stylesheet" href="{{ asset('/css/app.css') }} ">
   @yield('h-scripts')
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>

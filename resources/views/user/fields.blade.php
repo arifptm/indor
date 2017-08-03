@@ -22,7 +22,7 @@
 	{!! Form::label('role', 'Roles:') !!}<br>
 	<div class="icheck">
 		@foreach ($roles as $role)
-			<input type="checkbox" name="role[]" value="{{$role->name}}" {{ $role->name == 'user' ? 'disabled checked' : '' }} @if(!empty($user_roles)){{ in_array($role->name, $user_roles) ? 'checked' : '' }}@endif > <span style="margin-right:50px;">{{ $role->name }}</span>	
+			<input type="checkbox" name="role[]" value="{{$role->name}}" @if(!empty($user_roles)){{ in_array($role->name, $user_roles) ? 'checked' : '' }}@endif > <span style="margin-right:50px;">{{ $role->name }}</span>	
 		@endforeach
 	</div>
 </div>

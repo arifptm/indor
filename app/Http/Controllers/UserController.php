@@ -7,6 +7,7 @@ use App\User;
 use Flash;
 use Response;
 use App\Role;
+use Auth;
 
 class UserController extends Controller
 {
@@ -17,7 +18,7 @@ class UserController extends Controller
     }
 
     public function create(){
-        $roles = Role::where('name','<>','super')->get();
+        $roles = Role::whereNotIn('name',['super','user'])->get();
         return view('user.create', ['roles'=> $roles]);
     }
 
@@ -40,19 +41,22 @@ class UserController extends Controller
 
     public function edit($id){
         $u = User::with('roles')->findOrFail($id);
+        $user_roles = array();
         foreach ($u->roles as $role) {
             $user_roles[] = $role->name;
         }
-        
-        $roles = Role::where('name','<>','super')->get();
+        $roles = Role::whereNotIn('name',['user','super'])->get();
         return view('user.edit', ['user'=>$u, 'roles'=> $roles, 'user_roles'=>$user_roles]);
     }
 
 
     public function update(Request $request, $id){
-        
         $user = User::findOrFail($id);  
-        $user->attachRoles($request->role);
+        $user->detachRoles($user->roles->pluck('name')->toArray());        
+        if ($request->role){
+            $user->attachRoles($request->role);
+        }
+        $user->attachRole('user');
         $req = [
             'name' => $request->name,
             'email' => $request->email
@@ -74,6 +78,33 @@ class UserController extends Controller
         $user -> delete($id);
         flash('User deleted successfully.')->success();
         return redirect('/manage/users');
+    }
+
+
+
+
+
+
+
+    public function profile(){
+        $user = User::findOrFail(Auth::user()->id);
+        return view('user.profile', ['user'=>$user]);
+    }
+
+    public function updateProfile(Request $request){
+        $user = Auth::user();
+        $request['id'] = $user->id;  
+        $request['role'] = $user->roles->pluck('name')->toArray();
+        
+
+        if ( $request->password != ''){
+            $request['password'] = bcrypt($request->password);
+        }    
+        
+        $user -> update($request->all());
+        
+        flash('User update successfully.')->success();
+        return redirect('/profile');
     }
 
 
