@@ -1,12 +1,16 @@
-@extends('authtemplate')
+@extends('auth.template')
+
+@section('page-title')
+    Setel ulang password
+@endsection
 
 @section('content')
 <div class="login-box">
     <div class="login-logo">
-        <a href="../../index2.html"><b>Admin</b> App</a>
+        <a href="/">Indo<b>responder</b></a>
     </div>
     <div class="login-box-body">
-        <p class="login-box-msg">Reset Password</p>
+        <p class="lead login-box-msg">Setel ulang Password</p>
         @if (session('status'))
             <div class="alert alert-success">
                 {{ session('status') }}

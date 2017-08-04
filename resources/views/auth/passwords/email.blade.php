@@ -1,12 +1,16 @@
 @extends('auth.template')
 
+@section('page-title')
+Setel Ulang Password
+@endsection
+
 @section('content')
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Admin</b>LTE</a>
+    <a href="/">Indo<b>responder</b></a>
   </div>
   <div class="login-box-body">
-    <p class="login-box-msg">Reset Password</p>
+    <p class="lead login-box-msg">Setel ulang Password</p>
     @if (session('status'))
         <div class="alert alert-success">
             {{ session('status') }}
@@ -26,7 +30,7 @@
 
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block btn-flat">
-                Send Password Reset Link                
+                Kirim tautan setel ulang password! 
             </button>            
         </div>   
 

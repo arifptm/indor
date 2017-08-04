@@ -1,17 +1,21 @@
 @extends('auth.template')
 
+@section('page-title')
+Login Indoresponder
+@endsection
+
 @section('content')
 <div class="login-box">
   <div class="login-logo">
-    <a href="/"><b>Login</b> App</a>
+    <a href="/">Indo<b>responder</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
+    <p class="login-box-msg lead">Silakan Login!</p>
 
     <form method="POST" action="{{ route('login') }}">
       <div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
-        <input type="email" class="form-control" placeholder="Email"  id="email" name="email" value="{{ old('email') }}" required autofocus>
+        <input type="email" class="form-control" placeholder="Amalat Email"  id="email" name="email" value="{{ old('email') }}" required autofocus>
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         @if ($errors->has('email'))
             <span class="help-block">
@@ -32,32 +36,29 @@
         <div class="col-xs-8">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+              <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Ingat saya
             </label>
           </div>
         </div>
-        <!-- /.col -->
         <div class="col-xs-4">
           {{ csrf_field() }}  
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Log In</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
         </div>
-        <!-- /.col -->
       </div>
     </form>
 
     <div class="social-auth-links text-center">
-      <p>- OR -</p>
-      <a href="/login/facebook" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
+      <p>- ATAU -</p>
+      <a href="/login/facebook" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Login lewat
         Facebook</a>
-      <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
+      <a href="/login/google" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Login lewat
         Google+</a>
     </div>
 
-    <a href="{{ route('password.request') }}">I forgot my password</a><br>
-    <!-- <a href="register.html" class="text-center">Register a new membership</a> -->
+    <a href="{{route('password.request')}}"><i class="fa fa-question-circle"></i> Lupa password ?</a><br>
+    <a href="/register" class="text-center"><i class="fa fa-user-circle"></i> Pendaftaran akun baru</a>
 
   </div>
-  <!-- /.login-box-body -->
 </div>                          
 @endsection
 @section('f_scripts')

@@ -34,6 +34,7 @@
                   <th>Name</th>
                   <th>Email</th>
                   <th>Role</th>
+                  <th>Social Profile</th>
                   <th style="width: 100px">Label</th>
                 </tr>
 				@foreach($users as $user)
@@ -46,6 +47,12 @@
 								{{ $role->name }}{{ count($user->roles) > $k+1 ? ', ' : ''}}
 							@endforeach
 						</td>
+            <td>
+              @if(!empty($user->socialLogin))   
+                {{ $user->socialLogin->google_id ?: '' }}
+                {{ $user->socialLogin->facebook_id ?: '' }}
+              @endif
+            </td>
 						<td>
 			                {!! Form::open(['url' => '/manage/users/'.$user->id, 'method' => 'delete']) !!}
 			                <div class='btn-group'>

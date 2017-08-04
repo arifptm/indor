@@ -35,10 +35,18 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'google' => [
+        'client_id' => '207326123182-hejihgovm2ha8ocejvu21ni03ehjt36b.apps.googleusercontent.com',
+        'client_secret' => 'AWa-C_OYdIP6iZmcBlQrge5e',
+        'redirect' => 'http://indor.dev/login/google/callback',
+    ],   
+
     'facebook' => [
         'client_id' => '118281768816366',
         'client_secret' => '3ce99e52df6e5eb727e420b7e5bf1f3e',
         'redirect' => 'http://indor.dev/login/facebook/callback',
     ],
+
+
 
 ];
