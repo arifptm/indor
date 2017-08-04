@@ -24,4 +24,6 @@ Route::group(['middleware' => ['role:user|super']], function() {
 
 Route::group(['prefix'=>'manage', 'middleware' => ['role:super']], function() {
 	Route::resource('users', 'UserController');
+	Route::resource('autoresponders', 'AutoresponderController');
+	Route::resource('packages', 'PackageController');
 });
