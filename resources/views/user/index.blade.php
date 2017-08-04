@@ -33,6 +33,7 @@
                   <th style="width: 10px">#</th>
                   <th>Name</th>
                   <th>Email</th>
+                  <th>Aktif</th>
                   <th>Role</th>
                   <th>Social Profile</th>
                   <th style="width: 100px">Label</th>
@@ -42,6 +43,7 @@
 						<td>{{ $user->id }}</td>
 						<td>{{ $user-> name }}</td>
             <td>{{ $user-> email }}</td>
+            <td>{{ ($user-> verified == 1) ? 'YES' : 'no' }}</td>
 						<td>
 							@foreach($user->roles as $k=>$role)
 								{{ $role->name }}{{ count($user->roles) > $k+1 ? ', ' : ''}}
@@ -49,9 +51,10 @@
 						</td>
             <td>
               @if(!empty($user->socialLogin))   
-                {{ $user->socialLogin->google_id ?: '' }}
-                {{ $user->socialLogin->facebook_id ?: '' }}
+                  GoogleID: {{ $user->socialLogin->google_id ? $user->socialLogin->google_id : '---' }}<br/>
+                  FacebookID: {{ $user->socialLogin->facebook_id ? $user->socialLogin->facebook_id : '---' }} 
               @endif
+
             </td>
 						<td>
 			                {!! Form::open(['url' => '/manage/users/'.$user->id, 'method' => 'delete']) !!}

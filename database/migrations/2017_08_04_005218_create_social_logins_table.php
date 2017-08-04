@@ -15,8 +15,7 @@ class CreateSocialLoginsTable extends Migration
     {
         Schema::create('social_logins', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
-                
+            $table->integer('user_id')->unsigned();                
             $table->string('facebook_id')->nullable();
             $table->string('google_id')->nullable();
             $table->string('twitter_id')->nullable();
@@ -24,7 +23,7 @@ class CreateSocialLoginsTable extends Migration
 
             $table->engine = 'InnoDB';
             
-            $table->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
         });
     }

@@ -1,6 +1,6 @@
 @extends('auth.template')
 @section('content')
-<div class="login-box">
+<div class="login-box" style="width:500px;">
   <div class="login-logo">
     Pendaftaran <b>Berhasil</b>
   </div>

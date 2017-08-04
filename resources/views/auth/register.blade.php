@@ -7,7 +7,7 @@
 @section('content')
 <div class="register-box">
   <div class="register-logo">
-    <a href="../../index2.html">Indo<b>responder</b></a>
+    <a href="/">Indo<b>responder</b></a>
   </div>
 
   <div class="register-box-body">
@@ -64,7 +64,7 @@
       <p>- ATAU -</p>
       <a href="/login/facebook" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Daftar lewat
         Facebook</a>
-      <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Daftar lewat
+      <a href="/login/google" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Daftar lewat
         Google+</a>
     </div>
     <a href="/login" class="text-center"><i class="fa fa-play-circle"></i> Saya sudah pernah mendaftar</a>

@@ -97,24 +97,39 @@ class LoginController extends Controller
     {
         try {
             $socialUserInfo = Socialite::driver($provider)->user();
-            $exist_user = User::whereEmail($socialUserInfo->getEmail())->first();
-            if(count($exist_user) == 0 ){
+            $user = User::whereEmail($socialUserInfo->getEmail())->first();
+            if(count($user) == 0 ){
                 $user = new User;
-                $user->name = $socialUserInfo->getName();
                 $user->email = $socialUserInfo->getEmail();
-                $user->password = bcrypt(str_random(7));    
+                $user->name = $socialUserInfo->getName();
+                $user->password = bcrypt(str_random(7));
                 $user->email_token = base64_encode($socialUserInfo->getEmail());    
-                $user->save();   
-                $user->attachRole('user');
+                $user->save();
+                $user->attachRole('user');     
 
-                $social_login = new SocialLogin;
-                $providerField = "{$provider}_id";
-                $social_login->{$providerField} = $socialUserInfo->getId();
-                $social_login->save();
-                $user->socialLogin()->save($social_login);
-                //dispatch(new SendRegisterVerificationEmail($user));
-                return view('confirmation.verification');                               
+                $filename = time().".jpg";
+                $fileContents = file_get_contents($socialUserInfo->getAvatar());
+                File::put(public_path() . '/assets/profiles/' . $filename , $fileContents);
+                $profile = new Profile;
+                $profile->image = $filename;
+                $user->profile()->save($profile);
+                dispatch(new SendRegisterVerificationEmail($user));
             } 
+            
+            
+            $provider = "{$provider}_id";
+            $social = $user->socialLogin ?: new SocialLogin;
+            $social->{$provider} = $socialUserInfo->getId();
+            $user->socialLogin()->save($social);                
+
+            if($user->verified == 0){
+                dispatch(new SendRegisterVerificationEmail($user));
+                return view('confirmation.verification');  
+            } else {            
+                Auth()->login($user);
+                return redirect('/');
+            }
+           
         } catch (Exception $e) {
             throw new SocialAuthException("failed to authenticate with $provider");
         }
