@@ -6,6 +6,8 @@ use App\Autoresponder;
 use Illuminate\Http\Request;
 use Auth;
 
+use App\Jobs\SendNewAutoresponderEmail;
+
 class AutoresponderController extends Controller
 {
     public function index(){
@@ -21,9 +23,10 @@ class AutoresponderController extends Controller
     public function store(Request $request){
         $request = $request->all();
         $request['user_id'] = Auth::user()->id;
-        //$request['token'] = 
-        //send activation
-        Autoresponder::create($request);
+        $request['token'] = str_random(16);
+        $new_autoresponder = Autoresponder::create($request);
+
+        dispatch(new SendNewAutoresponderEmail($new_autoresponder));
 
         flash('Autoresponder berhasil ditambah.')->success();
         return redirect('/autoresponders');
@@ -57,4 +60,32 @@ class AutoresponderController extends Controller
         flash('Package deleted successfully.')->success();
         return redirect('/manage/packages');        
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function activate($token){
+        $a = Autoresponder::whereToken($token)->first();
+        if (count($a) == 1 ){
+            $a->update(['status' => 'A' ]);
+            return view('message.autoresponder_verified');
+        } else {
+            return view('error.no_autoresponder');
+        }        
+    }
+
+
 }
