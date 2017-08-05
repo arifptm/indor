@@ -10,6 +10,7 @@ use App\Role;
 use Auth;
 use App\Profile;
 use App\Http\Requests\UserCreate;
+use App\Package;
 
 class UserController extends Controller
 {
@@ -21,12 +22,15 @@ class UserController extends Controller
 
     public function create(){
         $roles = Role::whereNotIn('name',['super','user'])->get();
-        return view('user.create', ['roles'=> $roles]);
+        $packages = Package::pluck('name','id')->toArray();        
+        return view('user.create', ['roles'=> $roles, 'packages' => $packages]);
     }
 
     public function store(UserCreate $request){
         $req = $request->all();
         $req['password'] = bcrypt($request->password);        
+        $req['package_id'] = $request->package_id;
+        $req['verified'] = $request->status ? '1' : '0';
         $u = User::create($req);
         if($request->role){
             $u -> attachRoles($request->role);    
@@ -43,14 +47,14 @@ class UserController extends Controller
 
     public function edit($id){
         $u = User::with('roles')->findOrFail($id);
+        $packages = Package::pluck('name','id')->toArray();
         $user_roles = array();
         foreach ($u->roles as $role) {
             $user_roles[] = $role->name;
         }
         $roles = Role::whereNotIn('name',['user','super'])->get();
-        return view('user.edit', ['user'=>$u, 'roles'=> $roles, 'user_roles'=>$user_roles]);
+        return view('user.edit', ['user'=>$u, 'roles'=> $roles, 'user_roles'=>$user_roles, 'packages'=>$packages]);
     }
-
 
     public function update(Request $request, $id){
         $user = User::findOrFail($id);  
@@ -61,7 +65,9 @@ class UserController extends Controller
         $user->attachRole('user');
         $req = [
             'name' => $request->name,
-            'email' => $request->email
+            'email' => $request->email,
+            'package_id' =>  $request->package_id,
+            'verified' => $request->status ? '1' : '0'
         ];
 
         if ( ! $request->password == ''){
@@ -69,11 +75,10 @@ class UserController extends Controller
         }    
 
         $user -> update($req);
-        
+
         flash('User update successfully.')->success();
         return redirect('/manage/users');
     }
-
 
     public function destroy($id){
         $user = User::FindOrFail($id);

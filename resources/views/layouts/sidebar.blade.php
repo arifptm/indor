@@ -23,9 +23,18 @@
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        <li class="header">HEADER</li>
-        <!-- Optionally, you can add icons to the links -->
+        <li class="header">NAVIGATION</li>
+        @role('user|super')
+          <li><a href="/autoresponders"><i class="fa fa-gears"></i> <span>Autoresponder</span></a></li>
+        @endrole
+
+
+
+
+
+
         @role('super')
+        <li class="header">MANAGE</li>
         <li><a href="/manage/users"><i class="fa fa-users"></i> <span>User</span></a></li>
         <li><a href="/manage/packages"><i class="fa fa-gift"></i> <span>Package</span></a></li>
         <li><a href="/manage/autoresponders"><i class="fa fa-gears"></i> <span>Autoresponder</span></a></li>

@@ -35,6 +35,7 @@
                   <th>Email</th>
                   <th>Aktif</th>
                   <th>Role</th>
+                  <th>Package</th>
                   <th>Social Profile</th>
                   <th style="width: 100px">Label</th>
                 </tr>
@@ -49,6 +50,7 @@
 								{{ $role->name }}{{ count($user->roles) > $k+1 ? ', ' : ''}}
 							@endforeach
 						</td>
+            <td>{{ $user->package->name }}</td>
             <td>
               @if(!empty($user->socialLogin))   
                   GoogleID: {{ $user->socialLogin->google_id ? $user->socialLogin->google_id : '---' }}<br/>

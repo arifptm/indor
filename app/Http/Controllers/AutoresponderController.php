@@ -4,82 +4,57 @@ namespace App\Http\Controllers;
 
 use App\Autoresponder;
 use Illuminate\Http\Request;
+use Auth;
 
 class AutoresponderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
+    public function index(){
+        $a = Autoresponder::paginate(20);
+        return view('autoresponder.index', ['autoresponders' =>$a]);
+    }
+
+    public function create(){
+        return view('autoresponder.create');
+    }
+
+
+    public function store(Request $request){
+        $request = $request->all();
+        $request['user_id'] = Auth::user()->id;
+        //$request['token'] = 
+        //send activation
+        Autoresponder::create($request);
+
+        flash('Autoresponder berhasil ditambah.')->success();
+        return redirect('/autoresponders');
+    }
+
+    public function show(Package $package){
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function edit(Package $package){        
+        return view('manage.package.edit', ['package'=>$package]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Autoresponder  $autoresponder
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Autoresponder $autoresponder)
-    {
-        //
+    public function update(Request $request, Package $package){
+        $p = Package::findOrFail($package->id);
+        $request['can_single_optin'] =  $request->can_single_optin ? '1' : '0';
+        $request['show_ads'] = $request->show_ads ? '1' : '0';
+        $request['can_import'] =$request->can_import ? '1' :  '0';
+        $request['can_broadcast'] =$request->can_broadcast ? '1' :  '0';
+        $request['can_reminder'] =$request->can_reminder ? '1' : '0';
+        $request['can_copy_message'] =$request->can_copy_message ? '1' :  '0';
+        $p->update($request->all());
+        
+        flash('Package updated successfully.')->success();
+        return redirect('/manage/packages');
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Autoresponder  $autoresponder
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Autoresponder $autoresponder)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Autoresponder  $autoresponder
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Autoresponder $autoresponder)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Autoresponder  $autoresponder
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Autoresponder $autoresponder)
-    {
-        //
+    public function destroy(Package $package){
+        $p = Package::findOrFail($package->id);
+        $p -> delete();        
+        flash('Package deleted successfully.')->success();
+        return redirect('/manage/packages');        
     }
 }

@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'email_token',
+        'name', 'email', 'password', 'email_token', 'package_id','verified'
     ];
 
     /**
@@ -35,5 +35,9 @@ class User extends Authenticatable
 
     public function socialLogin(){
         return $this->hasOne('App\SocialLogin');
+    }
+
+    public function package(){
+        return $this->belongsTo('App\Package');
     }
 }

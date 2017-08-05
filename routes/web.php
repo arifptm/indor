@@ -19,11 +19,13 @@ Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCall
 Route::group(['middleware' => ['role:user|super']], function() {
 	Route::get('/profile', 'UserController@profile');
 	Route::patch('/profile/update', 'UserController@updateProfile');
+
+	Route::resource('autoresponders', 'AutoresponderController');
 });
 
 
 Route::group(['prefix'=>'manage', 'middleware' => ['role:super']], function() {
 	Route::resource('users', 'UserController');
-	Route::resource('autoresponders', 'AutoresponderController');
-	Route::resource('packages', 'PackageController');
+	//Route::resource('autoresponders', 'AutoresponderController');
+	Route::resource('packages', 'PackageController', ['except'=>['show']]);
 });

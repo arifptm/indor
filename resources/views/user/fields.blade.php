@@ -38,13 +38,30 @@
         @endif    
 </div>
 
-<div class="form-group col-sm-12">
+<div class="form-group col-sm-3">
+    {!! Form::label('package_id', 'Package:') !!}<br>
+    {!! Form::select('package_id', $packages, null, ['class' => 'form-control']) !!}
+        @if ($errors->has('package_id'))
+            <span class="help-block">
+                <strong>{{ $errors->first('package_id') }}</strong>
+            </span>
+        @endif    
+</div>
+
+<div class="form-group col-sm-3">
 	{!! Form::label('role', 'Roles:') !!}<br>
 	<div class="icheck">
 		@foreach ($roles as $role)
 			<input type="checkbox" name="role[]" value="{{$role->name}}" @if(!empty($user_roles)){{ in_array($role->name, $user_roles) ? 'checked' : '' }}@endif > <span style="margin-right:50px;">{{ $role->name }}</span>	
 		@endforeach
 	</div>
+</div>
+
+<div class="form-group col-sm-3">
+    {!! Form::label('status', 'Status:') !!}<br>
+    <div class="icheck">
+        <input type="checkbox" name="status" {{ ($user->verified == 1) ? 'checked' : '' }} > <span style="margin-right:50px;">Active</span>    
+    </div>
 </div>
 
 

@@ -27,7 +27,7 @@ class CreatePackagesTable extends Migration
             $table->string('max_option_field')->default('0');
             $table->string('max_link_tracking')->default('0');
             $table->string('max_custom_tag')->default('0');
-            $table->string('max_import_daily')->default('25');
+            $table->string('max_daily_import')->default('25');
             $table->boolean('can_import')->default('0');
             $table->boolean('can_copy_message')->default('0');
             $table->boolean('can_broadcast')->default('0');

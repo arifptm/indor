@@ -53,45 +53,7 @@ class LoginController extends Controller
     public function redirectToProvider($provider)
     {
         return Socialite::driver($provider)->redirect();
-    }
-
-    //$user = Socialite::driver('facebook')->user();
-    // $user->getId();
-    // $user->getNickname();
-    // $user->getName();
-    // $user->getEmail();
-    // $user->getAvatar();
-    // public function handleProviderCallback($provider)
-    // {        
-        
-    //     $fb_user = Socialite::driver('facebook')->user();
-    //     $user_exist = User::whereEmail($fb_user->email)->first();
-        
-    //     if(count($user_exist) == 0){
-    //         $user = new User;
-    //         $user->name = $fb_user->name;
-    //         $user->email = $fb_user->email;
-    //         $user->password = bcrypt(str_random(7));        
-    //         $user->save();   
-    //         $user->attachRole('user');
-
-    //         $profile = new Profile;
-    //         $profile->user_id = $user->id;
-
-    //         $filename = time().".jpg";
-    //         $fileContents = file_get_contents($fb_user->avatar);
-    //         File::put(public_path() . '/assets/profiles/' . $filename , $fileContents);
-    //         $profile->image = $filename;
-    //         $profile->save();
-
-    //         Auth::login($user);
-    //     } else {
-    //         Auth::login($user_exist);   
-    //     }
-        
-    //     return redirect('/home');
-    // }  
-
+    } 
 
     public function handleProviderCallback($provider)
     {

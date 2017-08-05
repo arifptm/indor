@@ -12,69 +12,50 @@ class PackageController extends Controller
         return view('manage.package.index', ['packages' =>$p]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
+    public function create(){
         return view('manage.package.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
+
+    public function store(Request $request){
+        
+        $request['can_single_optin'] =  $request->can_single_optin ? '1' : '0';
+        $request['show_ads'] = $request->show_ads ? '1' : '0';
+        $request['can_import'] =$request->can_import ? '1' :  '0';
+        $request['can_broadcast'] =$request->can_broadcast ? '1' :  '0';
+        $request['can_reminder'] =$request->can_reminder ? '1' : '0';
+        $request['can_copy_message'] =$request->can_copy_message ? '1' :  '0';
+        Package::create($request->all());
+        flash('Package created successfully.')->success();
+        return redirect('/manage/packages');
+    }
+
+    public function show(Package $package){
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Package  $package
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Package $package)
-    {
-        //
+    public function edit(Package $package){        
+        return view('manage.package.edit', ['package'=>$package]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Package  $package
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Package $package)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Package  $package
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Package $package)
-    {
-        //
+    public function update(Request $request, Package $package){
+        $p = Package::findOrFail($package->id);
+        $request['can_single_optin'] =  $request->can_single_optin ? '1' : '0';
+        $request['show_ads'] = $request->show_ads ? '1' : '0';
+        $request['can_import'] =$request->can_import ? '1' :  '0';
+        $request['can_broadcast'] =$request->can_broadcast ? '1' :  '0';
+        $request['can_reminder'] =$request->can_reminder ? '1' : '0';
+        $request['can_copy_message'] =$request->can_copy_message ? '1' :  '0';
+        $p->update($request->all());
+        
+        flash('Package updated successfully.')->success();
+        return redirect('/manage/packages');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Package  $package
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Package $package)
-    {
-        //
+    public function destroy(Package $package){
+        $p = Package::findOrFail($package->id);
+        $p -> delete();        
+        flash('Package deleted successfully.')->success();
+        return redirect('/manage/packages');        
     }
 }

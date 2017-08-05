@@ -19,43 +19,6 @@
             @endif  
     </div>
 </div>
-<div class="form-group col-md-3">
-    <div class="form-group col-sm-12">    
-        <div class="icheck"><label>        
-            <input type="checkbox" name="can_single_optin" value="1" > <span style="margin-right:50px;"> Always double Optin</span></label>
-        </div>
-    </div>
-
-    <div class="form-group col-sm-12">    
-        <div class="icheck"><label>        
-            <input type="checkbox" name="show_ads" value="1" > <span style="margin-right:50px;"> Show Ads</span></label>
-        </div>
-    </div>
-
-    <div class="form-group col-sm-12">    
-        <div class="icheck"><label>        
-            <input type="checkbox" name="show_ads" value="1" > <span style="margin-right:50px;"> Can Import Subcribers</span></label>
-        </div>
-    </div>
-
-    <div class="form-group col-sm-12">    
-        <div class="icheck"><label>        
-            <input type="checkbox" name="show_ads" value="1" > <span style="margin-right:50px;"> Can Copy Messages</span></label>
-        </div>
-    </div>
-
-    <div class="form-group col-sm-12">    
-        <div class="icheck"><label>        
-            <input type="checkbox" name="show_ads" value="1" > <span style="margin-right:50px;"> Can Broadcast</span></label>
-        </div>
-    </div>
-
-    <div class="form-group col-sm-12">    
-        <div class="icheck"><label>        
-            <input type="checkbox" name="show_ads" value="1" > <span style="margin-right:50px;"> Can Self Reminder</span></label>
-        </div>
-    </div>
-</div>
 
 <div class="form-group col-md-3">
     <div class="form-group col-sm-12">
@@ -117,7 +80,7 @@
     </div> 
     <div class="form-group col-sm-12">
         {!! Form::label('max_import_daily', 'Max Daily Import:') !!}
-        {!! Form::text('max_import_daily',null, ['class' => 'form-control']) !!}
+        {!! Form::text('max_daily_import',null, ['class' => 'form-control']) !!}
             @if ($errors->has('max_import_daily'))
                 <span class="help-block">
                     <strong>{{ $errors->first('max_import_daily') }}</strong>
@@ -133,7 +96,45 @@
                 </span>
             @endif  
     </div>     
-</div>    
+</div>   
+
+<div class="form-group col-md-3">
+    <div class="form-group col-sm-12">    
+        <div class="icheck"><label>        
+            {!! Form::checkbox('can_single_optin') !!}<span style="margin-right:50px;"> Can single Optin</span></label>            
+        </div>
+    </div>
+
+    <div class="form-group col-sm-12">    
+        <div class="icheck"><label>        
+            {!! Form::checkbox('show_ads', null) !!} <span style="margin-right:50px;"> Show Ads</span></label>
+        </div>
+    </div>
+
+    <div class="form-group col-sm-12">    
+        <div class="icheck"><label>        
+            {!! Form::checkbox('can_import', null) !!} <span style="margin-right:50px;"> Can Import Subcribers</span></label>
+        </div>
+    </div>
+
+    <div class="form-group col-sm-12">    
+        <div class="icheck"><label>        
+            {!! Form::checkbox('can_copy_message', null) !!} <span style="margin-right:50px;"> Can Copy Messages</span></label>
+        </div>
+    </div>
+
+    <div class="form-group col-sm-12">    
+        <div class="icheck"><label>        
+            {!! Form::checkbox('can_broadcast', null) !!} <span style="margin-right:50px;"> Can Broadcast</span></label>
+        </div>
+    </div>
+
+    <div class="form-group col-sm-12">    
+        <div class="icheck"><label>        
+            {!! Form::checkbox('can_reminder', null) !!} <span style="margin-right:50px;"> Can Self Reminder</span></label>
+        </div>
+    </div>
+</div> 
 
 <div class="form-group col-sm-12">
     {!! Form::button('Simpan', ['class'=>'btn btn-primary', 'type'=>'submit']) !!}    
