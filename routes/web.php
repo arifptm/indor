@@ -1,10 +1,11 @@
 <?php
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () {return redirect('login');});
 
 Auth::routes();
+
+
+
 
 Route::get('/email/verify/{token}', 'Auth\RegisterController@verify');
 
@@ -30,4 +31,5 @@ Route::group(['prefix'=>'manage', 'middleware' => ['role:super']], function() {
 	Route::resource('users', 'UserController');
 	//Route::resource('autoresponders', 'AutoresponderController');
 	Route::resource('packages', 'PackageController', ['except'=>['show']]);
+
 });
