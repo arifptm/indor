@@ -37,13 +37,8 @@
             <td>{{ $autoresponder-> from_email }}</td>
             <td></td>
 						<td>
-              @if ($autoresponder->status == 'A')
-                <spsn class="label label-primary">Aktif</span>
-              @elseif ($autoresponder->status == 'P')
-                <spsn class="label label-warning">Pending</span>
-              @endif
-
               {!! $autoresponder->status == 'A' ? '<div class="label label-primary">Aktif</div>' : ' '!!}
+              {!! $autoresponder->status == 'P' ? '<div class="label label-warning">Pending</div>' : ' '!!}
 						</td>
 						<td>
 			                {!! Form::open(['url' => '/autoresponder/'.$autoresponder->id, 'method' => 'delete']) !!}
