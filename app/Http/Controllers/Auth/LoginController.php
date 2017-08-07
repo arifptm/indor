@@ -38,6 +38,7 @@ class LoginController extends Controller
      *
      * @var string
      */
+
     protected $redirectTo = '/home';
 
     /**
@@ -49,6 +50,23 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    protected function credentials(\Illuminate\Http\Request $request){
+        return ['email' => $request->{$this->username()}, 'password' => $request->password, 'verified' => 1];
+    }
+
+    protected function validateLogin(Request $request){
+    
+        $message = [
+            $this->username() . '.exists' => 'The selected email is invalid or the account has been disabled.'
+        ];
+
+        $this->validate($request, [
+            $this->username() => 'required|string',
+            'password' => 'required|string',
+        ], $message);
+    }
+
 
     public function redirectToProvider($provider)
     {
@@ -96,4 +114,6 @@ class LoginController extends Controller
             throw new SocialAuthException("failed to authenticate with $provider");
         }
     }
+
+
 }
