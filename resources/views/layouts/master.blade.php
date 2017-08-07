@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="{{ asset('/bower_components/font-awesome/css/font-awesome.min.css') }}">
   <!-- <link rel="stylesheet" href="{{ asset('/bower_components/ionicons/css/ionicons.min.css') }}"> -->
   <link rel="stylesheet" href="{{ asset('/bower_components/AdminLTE/dist/css/AdminLTE.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('/bower_components/AdminLTE/dist/css/skins/skin-red.min.css') }} ">
+  <link rel="stylesheet" href="{{ asset('/bower_components/AdminLTE/dist/css/skins/skin-green.min.css') }} ">
   <link rel="stylesheet" href="{{ asset('/css/app.css') }} ">
   @yield('h-scripts')
   <!--[if lt IE 9]>
@@ -19,7 +19,7 @@
   <![endif]-->
 </head>
 
-<body class="hold-transition skin-red sidebar-mini">
+<body class="hold-transition skin-green sidebar-mini">
 <div class="wrapper">
 
   <!-- Main Header -->
